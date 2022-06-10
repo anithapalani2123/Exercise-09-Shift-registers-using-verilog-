@@ -41,39 +41,102 @@ FIGURE-04
 A Parallel in Parallel out (PIPO) shift register is used as a temporary storage device and like SISO Shift register it acts as a delay element.
 
 ### Procedure
-/* write all the steps invloved */
+1. Use quartus software and import required modules.
+
+2. Assign inputs and outputs for shift registers.
+
+3. Assign logic for input to give output at positive edge.
+
+4. Perform opertaions and produce rtl circuit.
+
+5. end module
 
 
 
 ### PROGRAM 
-/*
+```
 Program for  Implementation-of Shift-registers-using-verilog-
-Developed by: 
-RegisterNumber:  
-*/
+Developed by: ANITHA P
+RegisterNumber:  212221240004
+```
+
+### Serial Input Parallel Output (SIPO):
+```
+module SIPO(SI,Clk,PO);
+input SI,Clk;
+output[0:7]PO;
+reg[0:7]temp;
+always@(posedge Clk)
+begin
+temp = {temp[0:6],SI};
+end
+assign PO = temp;
+endmodule
+```
+### Parallel Input Serial Output (PISO):
+
+
+```
+module PISO(Clk, Parallel_In,load, Serial_Out);
+input Clk,load;
+input [3:0]Parallel_In;
+output reg Serial_Out;
+reg [3:0]tmp;
+always @(posedge Clk)
+begin
+if(load)
+tmp<=Parallel_In;
+else
+begin
+Serial_Out<=tmp[3];
+tmp<={tmp[2:0],1'b0};
+end
+end
+endmodule
+```
+### Parallel Input Parallel Output (PIPO):
 
 
 
+```
+module PIPO(PI,Clk,PO);
+input Clk;
+input[3:0]PI;
+output reg[3:0]PO;
+always@(posedge Clk)
+begin
+PO = PI;
+end 
+endmodule
+```
 
-
+## output:
+## Serial Input Parallel Output (SIPO):
 
 ### RTL LOGIC  REGISTERS   
-
-
-
-
-
-
-
-
+![output](./siportl.png)
 
 ### TIMING DIGRAMS FOR SHIFT REGISTERS
+![output](./sipowf.png)
+
+## Parallel Input Serial Output (PISO):
+
+### RTL LOGIC  REGISTERS   
+![output](./pisortl.png)
+
+### TIMING DIGRAMS FOR SHIFT REGISTERS
+![output](./pisowf.png)
+
+
+## Parallel Input Parallel Output (PIPO):
+
+### RTL LOGIC  REGISTERS   
+![output](./piportl.png)
+
+### TIMING DIGRAMS FOR SHIFT REGISTERS
+![output](./pipowf.png)
 
 
 
-
-
-
-
-
-### RESULTS 
+### RESULTS :
+Thus, PISO , PIPO, SIPO are implemented using verilog and their functionality using their functional tables is validated.
